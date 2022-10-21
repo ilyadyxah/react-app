@@ -1,21 +1,35 @@
 import './App.css';
 import {Message} from "./components/Message";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {Form} from "./components/Form";
 
 function App() {
-    const [userMessages, setUserMessage] = useState(
-        [
-            {id: 1, name:'Alex', text: 'some message'},
-            {id: 2, name:'Ivan', text: 'some message two'}
-        ]
-    )
+    const [messages, setMessages] = useState([])
 
+    const changeMessages = (data) => {
+        setMessages((prevState) => {
+            return [...prevState, {"name": data.name, "text": data.text}]
+        })
+    }
 
-  return (
-    <div>
-      <Message userMessages={userMessages}></Message>
-    </div>
-  );
+    useEffect(() => {
+        if (messages.length !== 0) {
+            setMessages(prevState => {
+                    if (messages[messages.length - 1].name !== 'Robot') {
+                        return [...prevState, {"name": 'Robot', "text": 'Thanks for message'}]
+                    } else return prevState
+                }
+            )
+        }
+
+    }, [messages])
+
+    return (
+        <div>
+            <Message messages={messages}></Message>
+            <Form changeMessages={changeMessages}></Form>
+        </div>
+    );
 }
 
 export default App;

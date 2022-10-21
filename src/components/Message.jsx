@@ -1,10 +1,9 @@
 import style from './Message.module.css'
 
-export const Message = ({userMessages}) => {
-    console.log(userMessages)
+export const Message = ({messages}) => {
     return <>
-        {userMessages.map((message) => {
-            return <div>
+        {messages.map((message, index) => {
+            return <div key={index}>
                 <h1 className={style.titleText}>{message.name}</h1>
                 <p>{message.text}</p>
             </div>
