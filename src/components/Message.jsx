@@ -8,6 +8,5 @@ export const Message = ({messages}) => {
                 <p>{message.text}</p>
             </div>
         })}
-
     </>
 }
